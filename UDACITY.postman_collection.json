@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "3f6b885a-6930-4e27-b00d-4e942723f19c",
+		"name": "UDACITY",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8000/message-signature/validate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"1Q1tdezVmUmYDc2Rrqzg8Cs3m6yrekYogV\",\r\n    \"signature\": \"H232Bh91wBnbQ5tLbY2ILWq/KI26k99QhLPdJos6qVQYQRYV4AM6xwzD7bLszxpUoE9nZsvdzul/LRezTdvD+NA=\"\r\n} \r\n \r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8000/message-signature/validate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"message-signature",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/block/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8000/block/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"block",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/stars/hash:c2eea91224497b759b23f1d091a55c8907a8bde940ee44daa3fcd3f7756c4dd4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8000/stars/hash:c2eea91224497b759b23f1d091a55c8907a8bde940ee44daa3fcd3f7756c4dd4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"stars",
+						"hash:c2eea91224497b759b23f1d091a55c8907a8bde940ee44daa3fcd3f7756c4dd4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/requestValidation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"address\" : \"1Q1tdezVmUmYDc2Rrqzg8Cs3m6yrekYogV\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/requestValidation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"requestValidation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/stars/address:1H4crH7TV33vrbC2atU7DsdJbsSniWn5kH",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8000/stars/address:1H4crH7TV33vrbC2atU7DsdJbsSniWn5kH",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"stars",
+						"address:1H4crH7TV33vrbC2atU7DsdJbsSniWn5kH"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
