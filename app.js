@@ -29,13 +29,23 @@ app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname + '/home.html')));
 
 app.get('/block/:id', async (req, res) => {
-    const blockRes = await blockchain.getBlock(req.params.id);
-    if (blockRes) {
-        res.send(blockRes) // server response 
+    
+    const height = await blockchain.getBlockHeight();
+
+    if (req.params.id <= height) {
+        const blockRes = await blockchain.getBlock(req.params.id);
+        if (blockRes.body.star) {
+            blockRes.body.star.storyDecoded = (new Buffer(blockRes.body.star.story, 'hex')).toString();
+        }
+        if (blockRes) {
+            res.send(blockRes); // server response 
+        } 
     } else {
-        res.status(404).send("The Block was NOT Found")
+        const err = new Error('Block Not Found')
+        err.httpStatusCode = 400
+        err.message = 'Block not found';
+        res.status(err.httpStatusCode).send(err.message);
     }
-});
 
 app.post('/block', async (req, res) => {
     console.log('----------------------------');
