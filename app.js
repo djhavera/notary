@@ -46,6 +46,7 @@ app.get('/block/:id', async (req, res) => {
         err.message = 'Block not found';
         res.status(err.httpStatusCode).send(err.message);
     }
+});
 
 app.post('/block', async (req, res) => {
     console.log('----------------------------');
