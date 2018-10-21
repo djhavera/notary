@@ -50,10 +50,10 @@ app.get('/block/:id', async (req, res) => {
 
 app.post('/block', async (req, res) => {
     console.log('----------------------------');
-    if (!req.body.address || !req.body.star) {
+    if (!req.body.address || !req.body.star || !req.body.star.dec || !req.body.star.story || !req.body.star.ra) {
         res.status(400).json({
             "status": 400,
-            message: "Please ensure to provide the star and address."
+            message: "Please ensure to provide the star, address, story, dec, and ra."
         })
     } else if (encodeURI(req.body.star.story).split(/%..|./).length - 1 > 500) {
         res.status(400).json({
@@ -62,13 +62,18 @@ app.post('/block', async (req, res) => {
         })
     } else {
         let starIdx = notary_list.findIndex(f => f.address === req.body.address);
+        console.log('******' + req.body.address)
         console.log('Validated Star Index: ' + starIdx);
         if (starIdx >= 0) {
             req.body.star.story = new Buffer(req.body.star.story).toString('hex');
+            req.body.star.ra = new Buffer(req.body.star.ra).toString('hex');
+            req.body.star.dec = new Buffer(req.body.star.dec).toString('hex');
             await blockchain.addBlock(new Block(req.body));
             const height = await blockchain.getBlockHeight();
             const response = await blockchain.getBlock(height);
             res.send(response);
+            delete req.body.address;
+            console.log('Deleted address' + req.body.address)
         } else {
             res.status(400).json({
                 "status": 400,
@@ -106,18 +111,19 @@ app.post('/requestValidation', async (req, res) => {
             console.log('');
             internal_db.push(resp);
         } else if (internal_db.findIndex(f => f.address === req.body.address) >= 0) {
-            console.log('----------------------------');
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
             let reqIdx = internal_db.findIndex(f => f.address === req.body.address);
             let timeStamp = internal_db[reqIdx].requestTimeStamp;
             let timeLeft = timeME - timeStamp;
             console.log('Address: ' + (req.body.address));
             console.log('timestamp: ' + timeME);
-            console.log('retrieved timestamp: ' + TimeStamp);
+            console.log('retrieved timestamp: ' + timeStamp);
             console.log('Time Remaining is: ' + timeLeft);
             if (timeLeft <= validationWindow) {
                 console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
                 console.log('Request already exists...');
                 console.log('Please validate at */message-signature/validate');
+                console.log('Time Remaining is: ' + timeLeft);
                 console.log('');
             } else if (timeLeft > validationWindow) {
                 console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
